@@ -15,3 +15,8 @@
 #include <atomic>
 #include <fstream>
 #include <vector>
+#include <memory>
+#include <iostream>
+#include <string>
+#include <future>
+#include <codecvt>

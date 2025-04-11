@@ -1,18 +1,14 @@
 #include "pch.h"
 
-typedef void (*StartAudioInjectionFunc)();
-typedef void (*StopAudioInjectionFunc)();
-typedef bool (*LoadAudioFileFunc)(const wchar_t*);
+typedef bool (*InjectAudioFunc)(const wchar_t*);
 
-void PrintUsage() {
+static void PrintUsage() {
     std::wcout << L"Usage:\n";
-    std::wcout << L"  AudioMixerApp.exe start\n";
-    std::wcout << L"  AudioMixerApp.exe stop\n";
-    std::wcout << L"  AudioMixerApp.exe load <path_to_audio_file>\n";
+    std::wcout << L"  AudioMixerApp.exe <path_to_audio_file>\n";
 }
 
 int wmain(int argc, wchar_t* argv[]) {
-    if (argc < 2) {
+    if (argc != 2) {
         PrintUsage();
         return 1;
     }
@@ -23,35 +19,19 @@ int wmain(int argc, wchar_t* argv[]) {
         return 1;
     }
 
-    StartAudioInjectionFunc StartAudioInjection = (StartAudioInjectionFunc)GetProcAddress(hModule, "StartAudioInjection");
-    StopAudioInjectionFunc StopAudioInjection = (StopAudioInjectionFunc)GetProcAddress(hModule, "StopAudioInjection");
-    LoadAudioFileFunc LoadAudioFile = (LoadAudioFileFunc)GetProcAddress(hModule, "LoadAudioFile");
-
-    if (!StartAudioInjection || !StopAudioInjection || !LoadAudioFile) {
-        std::wcerr << L"Failed to get function addresses\n";
+    InjectAudioFunc InjectAudio = (InjectAudioFunc)GetProcAddress(hModule, "InjectAudio");
+    if (!InjectAudio) {
+        std::wcerr << L"Failed to get InjectAudio function address\n";
         FreeLibrary(hModule);
         return 1;
     }
 
-    std::wstring command = argv[1];
-    if (command == L"start") {
-        StartAudioInjection();
-        std::wcout << L"Audio injection started.\n";
-    }
-    else if (command == L"stop") {
-        StopAudioInjection();
-        std::wcout << L"Audio injection stopped.\n";
-    }
-    else if (command == L"load" && argc == 3) {
-        if (LoadAudioFile(argv[2])) {
-            std::wcout << L"Audio file loaded successfully.\n";
-        }
-        else {
-            std::wcerr << L"Failed to load audio file.\n";
-        }
+    const wchar_t* filePath = argv[1];
+    if (InjectAudio(filePath)) {
+        std::wcout << L"Audio injection completed successfully.\n";
     }
     else {
-        PrintUsage();
+        std::wcerr << L"Audio injection failed.\n";
     }
 
     FreeLibrary(hModule);
