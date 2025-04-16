@@ -1,0 +1,35 @@
+
+[Version]
+Signature="$Windows NT$"
+Class=AudioEndpoint
+ClassGuid={c166523c-fe0c-4a94-a586-f1a80cfbbf3e}
+Provider=%ProviderName%
+DriverVer=04/01/2023,1.0.0.0
+CatalogFile=MicAPO.cat
+
+[Manufacturer]
+%MfgName%=MicAPO,NTamd64
+
+[MicAPO.NTamd64]
+%DeviceName%=MicAPO_Install,SWC\MICROPHONEAPO_SAMPLE
+
+[MicAPO_Install]
+Include=ks.inf,wdmaudio.inf
+Needs=KS.Registration
+
+[MicAPO_Install.Interfaces]
+AddInterface=%KSCATEGORY_AUDIO%,%KSNAME_Filter%,MicAPO.Interface
+
+[MicAPO.Interface]
+AddReg=MicAPO.AddReg
+
+[MicAPO.AddReg]
+HKLM,%EffectsRegPath%\{YOUR_GUID},%FXATTRIBUTENAME%,,%FXATTRIBUTEVALUE%
+
+[Strings]
+ProviderName="SoundpadMixer"
+MfgName="MicAPO Dev"
+DeviceName="Microphone APO Mixer"
+EffectsRegPath="Software\Microsoft\Windows\CurrentVersion\MMDevices\Audio\Capture\Effects"
+FXATTRIBUTENAME="AudioFxProxyDLL"
+FXATTRIBUTEVALUE="MicrophoneAPO.dll"
