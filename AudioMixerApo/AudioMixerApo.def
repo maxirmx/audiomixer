@@ -1,4 +1,0 @@
-LIBRARY "AudioMixerApo"
-EXPORTS
-    DllGetClassObject      PRIVATE
-    DllCanUnloadNow        PRIVATE
