@@ -1,0 +1,5 @@
+#pragma once
+
+// {A6781B19-FAE6-4A59-9F19-D0D2A27A9B88}
+EXTERN_C const GUID CLSID_AudioMixerApo;
+

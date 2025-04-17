@@ -1,4 +1,0 @@
-
-LIBRARY "MicrophoneAPO"
-EXPORTS
-    CreateAudioProcessingObject
