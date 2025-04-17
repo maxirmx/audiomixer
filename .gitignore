@@ -398,3 +398,4 @@ FodyWeavers.xsd
 
 # JetBrains Rider
 *.sln.iml
+/AudioMixerLib/wasapi_audio_injection.cpp

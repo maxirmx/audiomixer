@@ -1,0 +1,13 @@
+Windows Registry Editor Version 5.00
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Audio\Plugins\{A6781B19-FAE6-4A59-9F19-D0D2A27A9B88}]
+"FriendlyName"="AudioMixerApo"
+"CLSID"="{A6781B19-FAE6-4A59-9F19-D0D2A27A9B88}"
+"Type"="LFX"
+
+[HKEY_CLASSES_ROOT\CLSID\{A6781B19-FAE6-4A59-9F19-D0D2A27A9B88}]
+@="AudioMixerApo"
+
+[HKEY_CLASSES_ROOT\CLSID\{A6781B19-FAE6-4A59-9F19-D0D2A27A9B88}\InprocServer32]
+@="C:\\Windows\\System32\\AudioMixerApo.dll"
+"ThreadingModel"="Both"
